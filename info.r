@@ -1,0 +1,5 @@
+name = "Tina Huang"
+SID = "25674043"
+email = "thuang@berkeley.edu"
+github_name = "thuangy"
+status = "enrolled"
