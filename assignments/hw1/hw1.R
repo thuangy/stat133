@@ -81,25 +81,25 @@ load("family.rda")
 
 # Create a new data frame 
 # << family.men >> : a data frame that is a subset of family, with only the men
-
+family.men = family[family$gender == 'm', ]
 
 # Create a new data frame 
 # << family.young >> : a data frame, subset of family, with only people *under* 40
-
+family.young = family[family$age < 40, ]
 
 # Create a new data frame 
 # << family.30y68i >> : a data frame, subset of family, with only people *over* 30, *shorter* than 68 in
-
+family.30y68i = family[(family$age > 30) & (family$height < 68), ]
 
 # Formula for BMI : BMI = (weight in lbs) / (height in in)^2 * 703
 # Note: the dataframe has weight in lbs and height in in as required.
 # Create a new variable 
 # << bmi >> : a vector with the BMI of each family member 
-
+bmi = family$weight/(family$height^2) * 703
 
 # Create a new data frame
 # << family2 >> : family with an added column of BMI, with column name bmi
-
-
+family2 = family
+family2$bmi = bmi
 
 ##################################################################################
