@@ -130,13 +130,12 @@ segments(1998.583, 206, 2014, 206)
 # Also, do not type in the athlete's name. Instead, use subsetting
 # of wr1500m$athlete to access it.
 
-# wr_1944 <- your code here
-abline(v = 1944, col = "grey")
-abline(v = 1998, col = "grey")
-T_1944_record_holder = wr1500m[wr1500m$times_sec == 223.00, c("athlete")][1]
-T_1998_record_holder = wr1500m[wr1500m$times_sec == 206.00, c("athlete")]
-text(x=1950, y=227, labels=T_1944_record_holder, cex=0.70)
-text(x=2005, y=210, labels=T_1998_record_holder, cex=0.70)
+wr_1944 = wr1500m[wr1500m$times_sec == 223.00, c("athlete")][1]
+wr_1998 = wr1500m[wr1500m$times_sec == 206.00, c("athlete")]
+abline(v = 1944.583, col = "grey")
+abline(v = 1998.583, col = "grey")
+text(x=1950, y=227, labels=wr_1944, cex=0.70)
+text(x=2005, y=210, labels=wr_1998, cex=0.70)
 
 
 # Q5. Now we are ready to add other contextual information.
@@ -146,8 +145,8 @@ text(x=2005, y=210, labels=T_1998_record_holder, cex=0.70)
 # put your final version of the plotting commands below.
 plot(wr1500m$new_year, wr1500m$times_sec, type="s", xlim=c(1892, 2014), xlab="Year", ylab="Time (sec)", main="Times of 1500 m World Record Holders")
 segments(1998.583, 206, 2014, 206)
-abline(v = 1944, col = "grey")
-abline(v = 1998, col = "grey")
+abline(v = 1944.583, col = "grey")
+abline(v = 1998.583, col = "grey")
 T_1944_record_holder = wr1500m[wr1500m$times_sec == 223.00, c("athlete")][1]
 T_1998_record_holder = wr1500m[wr1500m$times_sec == 206.00, c("athlete")]
 text(x=1950, y=227, labels=T_1944_record_holder, cex=0.70)
@@ -224,7 +223,11 @@ points(log(no_medals$pop), log(no_medals$GDP_per_person), pch = ".")
 # title, and label 5 of the more interesting points
 # with the country name. Use text() to do this.
 
-# The five points I picked were "Australia", "India", "Russia", "USA", and "China"
+# The five points I picked were "Australia", "India", "Russia", "USA", and "China", because 
+# they were the easiest to see on my plot. 
+
+# Here are the countries that won the most medals. 
+top5 = only_medals$Country[order(x=only_medals$Total, decreasing=TRUE)][1:5]
 
 # Please zoom in on the plot to see each point more clearly. 
 symbols(log(only_medals$pop), log(only_medals$GDP_per_person), circles=only_medals$Total, xlim=c(8,22), xlab="Logarithm of Population", ylab="Logarithm of GDP Per Person", main="GDP Per Person Vs Population of Countries in 2012 Olympics", sub="The size of the circles corresponds to the number of medals won by a specific country.")
