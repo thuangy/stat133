@@ -115,7 +115,7 @@ plot(wr1500m$new_year, wr1500m$times_sec, type="s")
 
 # wr_1998 <- your code here
 plot(wr1500m$new_year, wr1500m$times_sec, type="s", xlim=c(1892, 2014))
-segments(1998.583, 206, 2014, 206)
+lines(c(1998.583,2014), c(206,206))
 
 
 # Q4. There are two times where the record stood for several
@@ -144,7 +144,7 @@ text(x=2005, y=210, labels=wr_1998, cex=0.70)
 
 # put your final version of the plotting commands below.
 plot(wr1500m$new_year, wr1500m$times_sec, type="s", xlim=c(1892, 2014), xlab="Year", ylab="Time (sec)", main="Times of 1500 m World Record Holders")
-segments(1998.583, 206, 2014, 206)
+lines(c(1998.583,2014), c(206,206))
 abline(v = 1944.583, col = "grey")
 abline(v = 1998.583, col = "grey")
 T_1944_record_holder = wr1500m[wr1500m$times_sec == 223.00, c("athlete")][1]
