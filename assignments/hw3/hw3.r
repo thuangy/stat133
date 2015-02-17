@@ -339,18 +339,20 @@ sd.rain = sapply(rain, sd)
 
 # Create a variable 
 # n1989.rain : a vector of length 5 with the number of measurements at each station in the year 1989 (use [day])
-condition1 = sapply(day[[1]], function(x) x<=1990 & x >=1989)
-condition2 = sapply(day[[2]], function(x) x<=1990 & x >=1989)
-condition3 = sapply(day[[3]], function(x) x<=1990 & x >=1989)
-condition4 = sapply(day[[4]], function(x) x<=1990 & x >=1989)
-condition5 = sapply(day[[5]], function(x) x<=1990 & x >=1989)
+condition1 = sapply(day[[1]], function(x) x<1990 & x >=1989)
+condition2 = sapply(day[[2]], function(x) x<1990 & x >=1989)
+condition3 = sapply(day[[3]], function(x) x<1990 & x >=1989)
+condition4 = sapply(day[[4]], function(x) x<1990 & x >=1989)
+condition5 = sapply(day[[5]], function(x) x<1990 & x >=1989)
 day1 = day[[1]][condition1]
 day2 = day[[2]][condition2]
 day3 = day[[3]][condition3]
 day4 = day[[4]][condition4]
 day5 = day[[5]][condition5]
-day_1989 = list(list(day1), list(day2), list(day3), list(day4), list(day5))
+day_1989 = list(day1, day2, day3, day4, day5)
 n1989.rain = sapply(day_1989, length)
+
+
 
 
 
