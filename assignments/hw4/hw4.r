@@ -13,11 +13,11 @@
 # <element.lengths>: a numeric vector whose entries are the lengths of each
 #   element of <data.list>
 
-listLengths <- function(data.list) {
-
-    # your code here
-
+listLengths = function(data.list) {
+  element.lengths = sapply(data.list,  length)
+  return(element.lengths)
 }
+
 
 #### Function 2
 #### Implement the function "powers"
@@ -30,9 +30,24 @@ listLengths <- function(data.list) {
 # <x.powers> : A matrix of size [n x k] where the first column is x, the second column x^2, the third column x^4, etc.
 #              the column names should be : "x", "x^2", "x^3" etc.
 
-powers <- function(x, k){
-
+powers = function(x, k){
+  power.vector = vector()
+  col.names = "x"
+  row.names = "[1]"
+  
+  for(i in 1:k){
+    power.vector = c(power.vector, sapply(x, function(y) y ^ i))
+  }
+  for(i in 2:k){
+    col.names = c(col.names, paste("[x^", i, "]", sep=""))
+  }
+  for(i in 2:length(x)){
+    row.names = c(row.names, paste("[", i, "]", sep=""))
+  }
+  x.powers = matrix(power.vector, nrow=length(x), ncol=k, dimnames= list(row.names , col.names))
+  return(x.powers)
 }
+
 
  
 #### Function #3
@@ -63,8 +78,16 @@ powers <- function(x, k){
 # function should stop and print out an error message
 
 # Put your code here
-recipeConversion <- function(recipe){
-
+recipeConversion = function(recipe){
+  if(all(colnames(recipe) != c("amount", "unit", "ingredient"))) stop("The recipe is not in the appropriate format for conversion.")
+  recipe$unit = as.character(recipe$unit)
+  recipe[recipe$unit == 'cup', ]$amount = floor(round(recipe[recipe$unit == 'cup', ]$amount * 236.6/5) * 5)
+  recipe$unit[recipe$unit == 'cup'] = 'ml'
+  recipe[recipe$unit == 'cups', ]$amount = floor(round(recipe[recipe$unit == 'cups', ]$amount * 236.6/5) * 5)
+  recipe$unit[recipe$unit == 'cups'] = 'ml'
+  recipe[recipe$unit == 'oz', ]$amount = floor(round(recipe[recipe$unit == 'oz', ]$amount * 28.3/5) * 5)
+  recipe$unit[recipe$unit == 'oz'] = 'gr'
+  return(recipe)
 }
 
 
@@ -73,7 +96,7 @@ recipeConversion <- function(recipe){
 
 # Input variable:
 # <x> : data vector
-# <B> : the number of boostrap iterations
+# <B> : the number of bootstrap iterations
 
 # Output variable:
 # <boot.sigma2.est> : Bootstrap estimate for the variance of the sample mean (see lecture notes)
@@ -89,8 +112,13 @@ recipeConversion <- function(recipe){
 # -- Calculate, and store, the mean of this bootstrap sample, call that mu_i (i in 1:B)
 # -- The bootstrap variance is the sample variance of mu_1, mu_2, ..., mu_B
 
-bootstrapVarEst <- function(x, B){
-
+bootstrapVarEst = function(x, B){
+  means = vector()
+  for(i in 1:B){
+    mu_i = mean(sample(x, length(x), replace=TRUE))
+    means = c(means, mu_i)
+  }
+  return(var(means))
 }
 
 #### Function #4b
@@ -111,8 +139,13 @@ bootstrapVarEst <- function(x, B){
 #     for this reduced sample calculate the sample mean (get mu_1, mu_2, ..., mu_n)
 # -- The jackknife variance is the sample variance of mu_1, mu_2, ..., mu_n
 
-jackknifeVarEst <- fuction(x){
-
+jackknifeVarEst = function(x){
+  means = vector()
+  for(i in 1:length(x)){
+    mu_i = mean(sample(x[-i], length(x)-1))
+    means = c(means, mu_i)
+  }
+  return(var(means))
 }
 
 #### Function #4c
@@ -127,8 +160,12 @@ jackknifeVarEst <- fuction(x){
 
 # Note: this function calls the previous two functions.
 
-samplingVarEst <- function(  ){
-
+samplingVarEst <- function(x, type="bootstrap"){
+  if(type=="jackknife"){
+    return(jackknifeVarEst(x))
+  } else{
+    return(bootstrapVarEst(x, B=1000))
+  }
 }
 
 
