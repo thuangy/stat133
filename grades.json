@@ -1,0 +1,23 @@
+{
+    "email": "thuang@berkeley.edu", 
+    "github_name": "thuangy", 
+    "grades": {
+        "hw1": {
+            "note": "", 
+            "hash": "a54405f6eb5e2e51507c3de75b0380121a6ee176", 
+            "earned": 18, 
+            "possible": 20, 
+            "penalty": 0, 
+            "parts": {
+                "hw1": {
+                    "possible": 20, 
+                    "earned": 18
+                }
+            }
+        }
+    }, 
+    "login": "thuangy", 
+    "name": "Tina Huang", 
+    "status": "enrolled", 
+    "url": "git@github.com:thuangy/stat133.git"
+}
