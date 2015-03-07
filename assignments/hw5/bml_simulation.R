@@ -7,4 +7,12 @@
 #### The output can e.g. be how many steps the system took until it hit gridlock or
 #### how many steps you observered before concluding that it is in a free flowing state.
 
+probabilities = seq(0, 1,by = 0.1)
+matsize = seq(10, 100, by = 10)
 
+for (p in 1:length(probabilities)){
+  for (s in 1:length(matsize)){
+    bml.sim(s, s, p)
+  }
+  
+}
