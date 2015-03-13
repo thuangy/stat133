@@ -19,5 +19,6 @@
     "login": "thuangy", 
     "name": "Tina Huang", 
     "status": "enrolled", 
-    "url": "git@github.com:thuangy/stat133.git"
+    "url": "git@github.com:thuangy/stat133.git", 
+    "section": "lab2"
 }
