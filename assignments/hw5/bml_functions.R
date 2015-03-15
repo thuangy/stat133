@@ -21,13 +21,6 @@ bml.init = function(r, c, p){
 ## NOTE : the function should move the red cars once and the blue cars once,
 ## you can write extra functions that do just a step north or just a step east.
 
-#List of Rows
-
-as.list(data.frame(t(m)))
-
-#List of Columns
-
-as.list(data.frame(m))
 
 move_north = function(v){
   i = 1
@@ -72,11 +65,6 @@ move_east = function(v){
   }
   return(v)
 }
-
-newm = sapply(as.list(data.frame(m)), move_north)
-sapply(as.list(data.frame(t(m))), move_east)
-
-rotate <- function(x) t(apply(x, 2, rev))
 
 
 bml.step <- function(m){
