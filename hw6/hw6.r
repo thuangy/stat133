@@ -28,6 +28,28 @@
 #                 non-adopter, else 1 (so once a row turns to 1 it stays as 1).
 
 sim.doctors <- function(initial.doctors, n.doctors, n.days, p){
+  total.doctors.days = initial.doctors
+  for(i in 2:n.days){
+    two.doctors.indices = sample(seq(from=1, to=length(initial.doctors)), 2, replace=TRUE)
+    two.doctors = c(initial.doctors[two.doctors.indices[1]], initial.doctors[two.doctors.indices[2]])
+    if((1 %in% two.doctors) & (0 %in% two.doctors)){
+      boolean = sample(c('True', 'False'), 1, prob=c(p, 1-p))
+      if(two.doctors[1] == 0){
+        if(boolean == 'True'){
+          initial.doctors[two.doctors.indices[1]] = 1
+        }
+      }else{
+        if(boolean == 'True'){
+          initial.doctors[two.doctors.indices[2]] = 1
+        }
+      }
+    }
+    total.doctors.days = c(total.doctors.days, initial.doctors)
+  }
+  has_adopted = matrix(total.doctors.days, nrow=n.doctors)
+  return(has_adopted)
+} 
+
 
   # Set up the output variable, define it as a matrix then use initial.doctors
   # to set the first column (day)
@@ -39,15 +61,36 @@ sim.doctors <- function(initial.doctors, n.doctors, n.days, p){
 
   # return the output
 
-}
+
 
 # When you test your function you have to generate <initial.doctors> and
 # pick values for the other input parameters.
 
 set.seed(42)
-# Generate a value for <initial.doctors> that has 10% 1s and 90% 0s.
+initial.doctors = sample(0:1, 1000, replace=TRUE, prob=c(0.9, 0.1))
+probabilities = seq(0.1, 0.9, by=0.2)
+
+num_doctors_adopted = c()
+for(i in 1:length(probabilities)){
+  mat = sim.doctors(initial.doctors, 1000, 10000, probabilities[i])
+  num_doctors_adopted = c(num_doctors_adopted, colSums(mat))
+}
+prob.1 = num_doctors_adopted[1:10000]
+prob.3 = num_doctors_adopted[10001:20000]
+prob.5 = num_doctors_adopted[20001:30000]
+prob.7 = num_doctors_adopted[30001:40000]
+prob.9 = num_doctors_adopted[40001:50000]
+
+
+# Geerate a value for <initial.doctors> that has 10% 1s and 90% 0s.
 # Run your function for at least 5 different values of <p> and plot
 # on x-axis: days,
 # on y-axis : the number of doctors that have already adopted the drug, on that day
 # Put all 5 lines in one figure (e.g. use first plot() then lines() for the subsequent lines)
+plot(x = prob.1, type="l", ylim = c(0, 1000), xlab = "Days", ylab="Number of Doctors That Have Adopted the Drug", main="Adoption of a New Drug by Doctors over Time", col="red")
+lines(x=seq(1, 10000, by=1), y = prob.3, col="orange")
+lines(x=seq(1, 10000, by=1), y = prob.5, col="green")
+lines(x=seq(1, 10000, by=1), y = prob.7, col="blue")
+lines(x=seq(1, 10000, by=1), y = prob.9, col="purple")
+legend(x=-300, y=1000, legend=c("10%", "30%", "50%", "70%", "90%"), lty=c(1,1, 1, 1, 1), col=c("red","orange", "green", "blue", "purple"), cex=0.65)
 
