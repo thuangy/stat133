@@ -337,8 +337,7 @@ names(presParty) = speechesDF$Pres
   
 # use rainbow() to pick one unique color for each party (there are 6 parties)
 
-randomcols = rainbow(6)
-cols <- randomcols[presParty]
+cols <- rainbow(6)
 
 # Now we are ready to plot again.
 # First plot mds by calling plot() with type='n' (it will create the axes but not plot the points)
@@ -347,7 +346,7 @@ cols <- randomcols[presParty]
 # col = cols[presParty[rownames(presDist)]]
   
 plot(mds, type='n', xlab="", ylab="", main="Presidents")
-text(mds, labels=allpresidents, col=cols)
+text(mds, labels=allpresidents, col=rainbow(6)[presParty[allpresidents]])
 
 
 ### Use hierarchical clustering to produce a visualization of  the results.
