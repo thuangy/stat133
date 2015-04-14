@@ -346,7 +346,7 @@ cols <- rainbow(6)
 # col = cols[presParty[rownames(presDist)]]
   
 plot(mds, type='n', xlab="", ylab="", main="Presidents")
-text(mds, labels=allpresidents, col=rainbow(6)[presParty[allpresidents]])
+text(mds, labels=allpresidents, col=cols[presParty[allpresidents]])
 
 
 ### Use hierarchical clustering to produce a visualization of  the results.
