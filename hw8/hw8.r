@@ -120,7 +120,7 @@ bootPlot = function(x, y, coeff, trueCoeff){
     curve(a+b*x+c*(x^2), add=TRUE, col=rgb(0.3,0.7,1,alpha=0.2))
   }
   
-  plot(data$x, data$y, pch=16)
+  plot(data$x, data$y, pch=16, xlab="X", ylab="Y")
   if(nrow(coeff) == 3){
     mapply(drawCurve, a=coeff[1,], b=coeff[2,], c=coeff[3,])
   }
