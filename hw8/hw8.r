@@ -18,16 +18,16 @@ genBootY = function(x, y, rep = TRUE){
   ### Return a vector of random y values the same length as y
   ### You can assume that the xs are sorted
   ### Hint use tapply here!
-  
+  as.vector(unlist(tapply(y, x, function(s) sample(s, 10, replace=TRUE))))
 
 }
 
-genBootR = function(fit, err, rep = TRUE){
+genBootR = function(fit, err, rep = FALSE){
   ### Sample the errors 
   ### Add the errors to the fit to create a y vector
   ### Return a vector of y values the same length as fit
   ### HINT: It can be easier to sample the indices than the values
-  
+  as.vector(fit + sample(err, length(fit), replace=FALSE))
  
 }
 
@@ -37,8 +37,12 @@ fitModel = function(x, y, degree = 1){
   ### y and x are numeric vectors of the same length
   ### Return the coefficients as a vector 
   ### HINT: Take a look at the repBoot function to see how to use lm()
-  
- 
+  if(degree == 1){
+    coeff = as.vector(lm(y~x)$coefficients)
+  }
+  if(degree == 2){
+    coeff = as.vector(lm(y ~ x + I(x^2))$coefficients)
+  }
   return(coeff)
 }
 
@@ -49,7 +53,12 @@ oneBoot = function(data, fit = NULL, degree = 1){
 
  
   ### Use fitModel to fit a model to this bootstrap Y 
- 
+ if(is.null(fit)){
+   ynew = genBootY(data$x, data$y)
+ }else{
+   ynew = genBootR(fit[ ,1], fit[ ,2])
+ }
+ return(fitModel(data$x, ynew, degree))
 }
 
 repBoot = function(data, B = 1000){
@@ -76,6 +85,16 @@ repBoot = function(data, B = 1000){
   ### fit is for a line or a quadratic
   ### Return this list
   
+  fit = lm(data$y~data$x)$fitted
+  error = lm(data$y~data$x)$residuals
+  fitmatrix = matrix(c(fit, error), nrow = length(fit), ncol=2)
+  
+  coeff = list()
+  coeff[[1]] = replicate(B, oneBoot(data, fit=NULL, degree=1))
+  coeff[[2]] = replicate(B, oneBoot(data, fit=NULL, degree=2))
+  coeff[[3]] = replicate(B, oneBoot(data, fit=fitmatrix, degree=1))
+  coeff[[4]] = replicate(B, oneBoot(data, fit=fitmatrix, degree=2))
+  
   return(coeff)
 } 
 
@@ -96,7 +115,19 @@ bootPlot = function(x, y, coeff, trueCoeff){
   
   ### Use trueCoeff to add true line/curve - 
   ###  Make the true line/curve stand out
-
+  
+  drawCurve = function(a, b, c){
+    curve(a+b*x+c*(x^2), add=TRUE, col=rgb(0.3,0.7,1,alpha=0.2))
+  }
+  
+  plot(data$x, data$y, pch=16)
+  if(nrow(coeff) == 3){
+    mapply(drawCurve, a=coeff[1,], b=coeff[2,], c=coeff[3,])
+  }
+  if(nrow(coeff) == 2){
+    mapply(abline, a=coeff[1,], b=coeff[2,], col=rgb(0.8,0.2,0.8,alpha=0.2))
+  }
+  curve(trueCoeff[1]+trueCoeff[2]*x+trueCoeff[3]*(x^2), add=TRUE, lwd=5)
 }
 
 ### Run your simulation by calling this function
