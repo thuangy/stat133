@@ -1,0 +1,5 @@
+line 96: use quadratic fit when degree=2  -2
+line 123: input is x and y, not data!
+no output due to above error  -2
+
+Score: 16/20
