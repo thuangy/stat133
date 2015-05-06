@@ -1,0 +1,4 @@
+f3 -1
+boxplot  -2
+
+Score: 30/33
