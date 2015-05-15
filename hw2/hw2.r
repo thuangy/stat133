@@ -166,7 +166,8 @@ text(x=2005, y=210, labels=T_1998_record_holder, cex=0.70)
 # The data frame SO2012Ctry contains this information.
 # It can be loaded into R with
 
-load("~/src/stat133/assignments/hw2/SummerOlympics2012Ctry.rda")
+# load("~/src/stat133/assignments/hw2/SummerOlympics2012Ctry.rda")
+load("SummerOlympics2012Ctry.rda")
 
 
 #Q6 Take a look at the variables in this data frame.
