@@ -72,8 +72,8 @@ wr.name = droplevels(wr1500m[wr1500m$times == min(wr1500m$times), c("athlete")])
 # Q1c. What type of variable (numeric (continuous or discrete), nominal ordinal)
 # are year and times? (no need to save the output, just look at it)
 
-class(wr1500m$year)
-class(wr1500m$times)
+#class(wr1500m$year)
+#class(wr1500m$times)
 
 # When we are examining a variable to see how it changes in time,
 # we typically make a line plot, with time on the x-axes and 
@@ -282,10 +282,10 @@ symbols(x=only_medals$longitude, y=only_medals$latitude, add=TRUE, circles=only_
 
 # You only need to call these two lines once:
 #install.packages("RColorBrewer")
-library(5, "RColorBrewer")
+library("RColorBrewer")
 
 display.brewer.all()
-brewer.pal(n=9, name="YlOrRd")
+#brewer.pal(n=9, name="YlOrRd")
 
 myGold = "#FED976AB"
 
