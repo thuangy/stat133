@@ -401,9 +401,10 @@ NumJackpot <- function(k, B){
 # For B = 5000 and each value of k = 10000, 50000, 100000, 500000
 # Plot a histogram of the output from NumJackpot (i.e. four histograms)
 par(mfrow=c(2,2))
-Bvec = c(100, 500, 1000, 5000)
+Bvec = c(100, 500, 1000, 5000) ## this is actually k...
+## inga, B from 5000 to 100
 for(i in 1:4){
-  hist(NumJackpot(Bvec[i], 5000), xlab="Number of Lottery Winners", main=paste("Histogram for B=", Bvec[i]))
+  hist(NumJackpot(Bvec[i], 100), xlab="Number of Lottery Winners", main=paste("Histogram for B=", Bvec[i]))
 }
 
 #################################################################
